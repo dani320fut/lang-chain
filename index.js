@@ -1,18 +1,15 @@
-import { ChatOpenAI } from "langchain/chat_models/openai";
 import { HumanChatMessage } from "langchain/schema";
 import chat from "./chatInstance.js";
 
+let response;
+
+const textArray = process.argv.slice(2);
+
+if (textArray?.length > 0) {
+  response = await chat.call([new HumanChatMessage(textArray?.join(" "))]);
+}
+
 console.log(
-  "🚀 HumanChatMessage:",
-  new HumanChatMessage(
-    "Translate this sentence from English to French. I love programming."
-  )
+  "Resultado:",
+  response?.text ? response?.text : "Nenhum conteudo a ser carregado"
 );
-
-const response = await chat.call([
-  new HumanChatMessage(
-    "Translate this sentence from English to French. I love programming."
-  ),
-]);
-
-console.log("🚀 ~ file: index.ts:7 ~ chat:", response);
